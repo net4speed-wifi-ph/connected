@@ -37,10 +37,15 @@
         <h2>Session Details</h2>
         <p><strong>Session Start Time:</strong> <span id="startTime"></span></p>
         <p><strong>Session Duration:</strong> <span id="sessionDuration">0 minutes</span></p>
+        <p><strong>Voucher Expiration:</strong> <span id="expiryTime"></span></p>
+        <p id="expiredWarning" style="color: red; font-weight: bold;"></p>
         <button onclick="logout()">Logout</button>
     </div>
 
     <script>
+        // Set voucher duration in minutes (example: 60 minutes = 1 hour)
+        let voucherDuration = 60; // Change this based on the voucher validity
+
         // Check if session start time exists in local storage
         let startTime = localStorage.getItem("sessionStartTime");
         if (!startTime) {
@@ -48,18 +53,34 @@
             localStorage.setItem("sessionStartTime", startTime);
         }
 
-        // Display session start time
+        // Convert start time to Date object
         let startDate = new Date(startTime);
+
+        // Display session start time
         document.getElementById("startTime").innerText = startDate.toLocaleTimeString();
 
-        // Update session duration
+        // Calculate & display session duration
         function updateDuration() {
             let now = new Date();
             let diff = Math.floor((now - startDate) / 60000); // Convert ms to minutes
             document.getElementById("sessionDuration").innerText = diff + " minutes";
         }
-        setInterval(updateDuration, 60000); // Update every minute
+        setInterval(updateDuration, 60000);
         updateDuration();
+
+        // Calculate voucher expiration time
+        let expiryDate = new Date(startDate.getTime() + voucherDuration * 60000);
+        document.getElementById("expiryTime").innerText = expiryDate.toLocaleString();
+
+        // Check if voucher is expired
+        function checkExpiration() {
+            let now = new Date();
+            if (now >= expiryDate) {
+                document.getElementById("expiredWarning").innerText = "⚠️ Your voucher has expired!";
+            }
+        }
+        setInterval(checkExpiration, 10000);
+        checkExpiration();
 
         // Logout function
         function logout() {
