@@ -46,7 +46,7 @@ h3 {
 font-size: 25px; opacity: 1; color:#FFFFFF;
 }
         .container {
-            max-width: 360px;
+            max-width: 380px;
             margin: auto;
             padding: 10px;
             border: 1px solid #ddd;
@@ -87,7 +87,7 @@ font-size: 25px; opacity: 1; color:#FFFFFF;
 <img class="logo" src="lg.png" alt="Logo">
     <div class="container">
 <img class="logo2" src="ConLogo.png" alt="Logo">
-        <font color="#FFFFFF"><h3 id="serial">Fetching...</h3></font>
+        <font color="#FFFFFF"><h3>Hi, Online User!</h3></font>
      
         
 <p> </p>
@@ -165,18 +165,7 @@ font-size: 25px; opacity: 1; color:#FFFFFF;
 <center> <td><i>Powered by: Edison</i> </td></h4> </center>
 
 
-<script>
-    async function getSerial() {
-        try {
-            let response = await fetch('http://your-server-ip:5000/get-serial');
-            let data = await response.json();
-            document.getElementById("serial").textContent = "Serial Number: " + data.serial;
-        } catch (error) {
-            document.getElementById("serial").textContent = "Error: Unable to fetch serial number.";
-        }
-    }
-    getSerial();
-</script>
 
-  </body>
+
+    </body>
 </html>
