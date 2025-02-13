@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Net4Speed Duration Tracker</title>
+
+    <script>
+        // Force the page to open in the main browser window
+        if (window.top !== window.self) {
+            window.top.location = window.location.href;
+        }
+    </script> 
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,12 +19,6 @@
             margin: 50px;
         }
 
-    <script>
-        // Force the page to open in the main browser window
-        if (window.top !== window.self) {
-            window.top.location = window.location.href;
-        }
-    </script>
 
 .logo {
     display: block;
@@ -89,6 +91,7 @@ font-size: 25px; opacity: 1; color:#FFFFFF;
         }
 
     </style>
+
 </head>
 <body>
 <img class="logo" src="lg.png" alt="Logo">
