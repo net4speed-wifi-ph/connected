@@ -11,6 +11,13 @@
             margin: 50px;
         }
 
+    <script>
+        // Force the page to open in the main browser window
+        if (window.top !== window.self) {
+            window.top.location = window.location.href;
+        }
+    </script>
+
 .logo {
     display: block;
     margin: 0 auto 0px;
