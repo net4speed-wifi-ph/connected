@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Session Tracking</title>
+    <title>Logout - Omada WiFi</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -18,7 +18,7 @@
             border-radius: 10px;
             box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
         }
-        .btn {
+         .btn {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -45,6 +45,7 @@
             width: 20px;
             height: 20px;
         }
+
     </style>
 </head>
 <body>
@@ -52,20 +53,21 @@
         <h2>Session Details</h2>
         <p><strong>Session Start:</strong> <span id="startDateTime">Loading...</span></p>
         <p><strong>Active Session Duration:</strong> <span id="sessionDuration">00:00:00</span></p>
-
+        <button onclick="logout()">Logout</button>
+    </div>
+    <div>
         <!-- Facebook Follow Button -->
         <a href="https://www.facebook.com/teamdoyoyofficial" target="_blank" class="btn fb-btn">
             <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Facebook_Logo_2023.png" alt="Facebook Logo">
             Follow on Facebook
         </a>
-
+    <div>
         <!-- YouTube Subscribe Button -->
         <a href="https://www.youtube.com/@teamdoyoy?sub_confirmation=1" target="_blank" class="btn yt-btn">
             <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_social_white_squircle_%282017%29.svg" alt="YouTube Logo">
             Subscribe on YouTube
         </a>
     </div>
-
     <script>
         // Get stored session data
         let startTime = localStorage.getItem("sessionStartTime");
@@ -125,4 +127,27 @@
         }
 
         // Listen for page visibility changes
-        document.addEventListener
+        document.addEventListener("visibilitychange", () => {
+            if (document.visibilityState === "visible") {
+                startTracking();
+            } else {
+                stopTracking();
+            }
+        });
+
+        // Start tracking on load
+        window.onload = function () {
+            startTracking();
+            interval = setInterval(updateSessionDuration, 1000);
+        };
+
+        // Logout function (clears session data)
+        function logout() {
+            localStorage.removeItem("sessionStartTime");
+            localStorage.removeItem("activeSessionTime");
+            localStorage.removeItem("lastActive");
+            window.location.href = "http://portal.tplink.net/portal/logout"; // Omada logout
+        }
+    </script>
+</body>
+</html>
