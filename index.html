@@ -46,7 +46,7 @@ h3 {
 font-size: 25px; opacity: 1; color:#FFFFFF;
 }
         .container {
-            max-width: 380px;
+            max-width: 360px;
             margin: auto;
             padding: 10px;
             border: 1px solid #ddd;
@@ -87,7 +87,7 @@ font-size: 25px; opacity: 1; color:#FFFFFF;
 <img class="logo" src="lg.png" alt="Logo">
     <div class="container">
 <img class="logo2" src="ConLogo.png" alt="Logo">
-        <font color="#FFFFFF"><h3 id="ip">Fetching...</h3></font>
+        <font color="#FFFFFF"><h3 id="serial">Fetching...</h3></font>
      
         
 <p> </p>
@@ -166,18 +166,17 @@ font-size: 25px; opacity: 1; color:#FFFFFF;
 
 
 <script>
-        async function getIP() {
-            try {
-                let response = await fetch('https://api64.ipify.org?format=json');
-                let data = await response.json();
-                let modifiedIP = data.ip.replace(/^(\d+\.\d+\.\d+\.\d+)$/, 'Hi, $1!'); // Inserts "Hi," inside the IP
-                document.getElementById("ip").textContent = modifiedIP;
-            } catch (error) {
-                document.getElementById("ip").textContent = "Hi, Error fetching IP";
-            }
+    async function getSerial() {
+        try {
+            let response = await fetch('http://your-server-ip:5000/get-serial');
+            let data = await response.json();
+            document.getElementById("serial").textContent = "Serial Number: " + data.serial;
+        } catch (error) {
+            document.getElementById("serial").textContent = "Error: Unable to fetch serial number.";
         }
-        getIP();
-    </script>
+    }
+    getSerial();
+</script>
 
   </body>
 </html>
