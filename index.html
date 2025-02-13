@@ -17,6 +17,12 @@
     width: 270px;
     height: auto;
 }
+.logo2 {
+    display: block;
+    margin: 0 auto 0px;
+    width: 260px;
+    height: auto;
+}
 body::before {
     content: '';
     position: fixed;
@@ -34,6 +40,10 @@ body::before {
 h4 {
     text-align: center;
 font-size: 12px; opacity: 0.7; color:#FFFF00;
+}
+h3 {
+    text-align: center;
+font-size: 30px; opacity: 1; color:#FFFFFF;
 }
         .container {
             max-width: 330px;
@@ -76,9 +86,9 @@ font-size: 12px; opacity: 0.7; color:#FFFF00;
 <body>
 <img class="logo" src="lg.png" alt="Logo">
     <div class="container">
-        <font color="#FFFFFF"><h2>Session Details</h2></font>
-        <font color="#FFFF00"><p><strong>Voucher Code:</strong> <span id="voucherCode">Detecting...</span></p>
-        <p><strong>Active Session Duration:</strong> <span id="sessionDuration">00:00:00</span></p></font>
+<img class="logo2" src="ConLogo.png" alt="Logo">
+        <font color="#FFFFFF"><h3 id="ip">Fetching...</h3></font>
+     
         
 <p> </p>
  <style>             
@@ -155,43 +165,19 @@ font-size: 12px; opacity: 0.7; color:#FFFF00;
 <center> <td><i>Powered by: Edison</i> </td></h4> </center>
 
 
-  <script>
-        // Auto-detect voucher code (placeholder logic, adapt as needed)
-        let voucherCode = localStorage.getItem("voucherCode");
-        if (!voucherCode) {
-            voucherCode = "AUTO1234"; // Replace with actual detection logic
-            localStorage.setItem("voucherCode", voucherCode);
-        }
-        document.getElementById("voucherCode").innerText = voucherCode;
-
-        // Get stored session duration
-        let activeTime = parseInt(localStorage.getItem("activeSessionTime")) || 0;
-        let tracking = false;
-        let interval;
-
-        function updateSessionDuration() {
-            let hours = Math.floor(activeTime / 3600);
-            let minutes = Math.floor((activeTime % 3600) / 60);
-            let seconds = activeTime % 60;
-            document.getElementById("sessionDuration").innerText = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        }
-
-        function startTracking() {
-            if (!tracking) {
-                tracking = true;
-                interval = setInterval(() => {
-                    activeTime++;
-                    localStorage.setItem("activeSessionTime", activeTime);
-                    updateSessionDuration();
-                }, 1000);
+<script>
+        async function getIP() {
+            try {
+                let response = await fetch('https://api64.ipify.org?format=json');
+                let data = await response.json();
+                let modifiedIP = data.ip.replace(/^(\d+\.\d+\.\d+\.\d+)$/, 'Hi, $1!'); // Inserts "Hi," inside the IP
+                document.getElementById("ip").textContent = modifiedIP;
+            } catch (error) {
+                document.getElementById("ip").textContent = "Hi, Error fetching IP";
             }
         }
-
-        window.onload = function () {
-            updateSessionDuration();
-            startTracking();
-        };
+        getIP();
     </script>
 
-</body>
+  </body>
 </html>
