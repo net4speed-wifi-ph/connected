@@ -35,7 +35,7 @@
 <body>
     <div class="container">
         <h2>Session Details</h2>
-        <p><strong>Session Start Time:</strong> <span id="startTime">Loading...</span></p>
+        <p><strong>Session Start:</strong> <span id="startDateTime">Loading...</span></p>
         <p><strong>Active Session Duration:</strong> <span id="sessionDuration">00:00:00</span></p>
         <button onclick="logout()">Logout</button>
     </div>
@@ -46,15 +46,16 @@
         let activeTime = parseInt(localStorage.getItem("activeSessionTime")) || 0;
         let lastActive = localStorage.getItem("lastActive");
 
-        // If session doesn't exist, start now
+        // If no session exists, start now
         if (!startTime) {
             startTime = new Date().toISOString();
             localStorage.setItem("sessionStartTime", startTime);
         }
 
-        // Convert start time to Date object
+        // Convert stored session start time to readable format
         let startDate = new Date(startTime);
-        document.getElementById("startTime").innerText = startDate.toLocaleTimeString();
+        let formattedDate = startDate.toLocaleString(); // Includes date and time
+        document.getElementById("startDateTime").innerText = formattedDate;
 
         let tracking = false;
         let interval;
