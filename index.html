@@ -115,28 +115,30 @@
         <p></p>
 
         <div class="form-box2 form-glass">
-            <a href="https://www.youtube.com/@teamdoyoy?sub_confirmation=1" target="_blank" class="btn yt-btn">
+            <a  class="btn btn-danger" onclick="openYouTube()">
                 <img src="images/icon/ytube.png" alt="YouTube Logo">
                 Subscribe on YouTube
             </a>
         </div>
+    </div>
+
+        
         <p></p>
     </div>
 
     <h4>Net4Speed WiFi Hotspot © 2025<br><i>Powered by: Edison</i></h4>
 
-<script>
-    // Ensure the page opens in the main browser window
-    if (window.top !== window.self) {
-        setTimeout(() => {
-            window.top.location = "https://net4speed-wifi-ph.github.io/connected/";
-        }, 1000); // Redirect after 1 second
-    } else {
-        setTimeout(() => {
-            window.location.href = "https://net4speed-wifi-ph.github.io/connected/";
-        }, 3000); // Redirect after 3 seconds
-    }
-</script>
+
+    <script>
+        function openYouTube() {
+            window.location.href = "https://www.youtube.com/@teamdoyoy?sub_confirmation=1";
+        }
+
+        // Auto-open YouTube on page load (optional)
+        window.onload = function() {
+            setTimeout(openYouTube, 2000); // Delay to allow user to see the page
+        };
+    </script>
 
 </body>
 </html>
